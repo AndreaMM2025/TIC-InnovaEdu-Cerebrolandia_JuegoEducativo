@@ -1,17 +1,27 @@
-1.- --- Instala librerías ---
-Ejecutar este comando en la consola:
+1.- --- Instalar librerías necesarias ---
+Ejecutar en consola este comando:
+
 npm i express mongoose body-parser express-session
 
 2.- --- Activar el Cluster0 de MongoDB ---
-- Abrir MongoDB Atlas.
-- Ir a "Clusters", seleccionar "Cluster0".
-- Dar clic en "Connect", luego en la opción "Drivers".
-- Ahí aparece un URL que debes copiar.
-- En ese link, reemplazar donde dice <db-password> con la contraseña que se creó al generar el usuario del cluster.
-- Ese link se configura dentro del archivo config.js , para que la app pueda conectarse a la base de datos.
+- Ingresar a MongoDB Atlas.
+- Ir a "DATABASE" > "Clusters" y seleccionar "Cluster0".
+- Dar clic en el botón "Connect", luego en la opción "Drivers".
+- Copiar el URL que se genera.
+- En ese URL, reemplazar donde dice <db-password> con la contraseña creada al momento de generar el usuario del cluster.
+- Ese link se debe pegar en el archivo config.js (o .env) para que la aplicación se conecte correctamente a la base de datos.
 
 3.- --- Iniciar la aplicación ---
 Ejecutar en consola:
+
 npm start
 
+4.- --- Abrir la aplicación del juego ---
+Luego de ejecutar el comando, se abre la página del juego donde se puede hacer el registro o login del estudiante o docente.
 
+5.- --- Guardar los datos en la base ---
+Cuando se hacen registros o logins, esas conexiones deben guardarse en la base de datos automáticamente.
+Para visualizarlas:
+- Ir nuevamente a MongoDB Atlas.
+- Entrar a "Browse Collections".
+- Ahí se verá la base de datos conectada y las tablas (collections) con los datos guardados.
