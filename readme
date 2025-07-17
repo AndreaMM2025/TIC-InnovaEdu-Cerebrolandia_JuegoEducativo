@@ -1,0 +1,5 @@
+1.- ---instala librerias---  ejecutar en consola  --> npm i express mongoose body_paser express-session   
+
+2.- --- activar el cluster0 mongoDb configurar el archivo config con credenciales.
+
+3.- --- ejecutar comando "npm start" para incial la aplicacion.
