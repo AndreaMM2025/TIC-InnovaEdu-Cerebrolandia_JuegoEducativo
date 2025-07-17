@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recuperar Contraseña</title>
+  <link rel="stylesheet" href="../recuperar/recuperar.css" />
+  <script src="../recuperar/recuperar.js" defer></script>
+</head>
+<body>
+  <img src="../img/back.png" alt="Volver" class="back-icon" onclick="window.history.back()" />
+  <div class="form-container">
+    <h2 class="form-title">Recuperar Contraseña</h2>
+    <form class="formulario" onsubmit="cambiarContraseña(event)">
+      
+      <label for="email">Correo Electrónico:</label>
+      <input type="email" id="email" required placeholder="Email" />
+
+      <label for="contrasena">Nueva Contraseña:</label>
+      <div class="password-wrapper">
+        <input type="password" id="contrasena" required placeholder="Nueva contraseña" />
+        <span id="toggle-password" class="eye-icon" title="Mostrar/Ocultar">👁️</span>
+      </div>
+      <label for="confirm-password">Confirmar Contraseña:</label>
+      <div class="password-wrapper">
+        <input type="password" id="confirm-password" required placeholder="Confirmar contraseña" />
+        <span id="toggle-confirm-password" class="eye-icon" title="Mostrar/Ocultar">👁️</span>
+      </div>
+
+      <button type="submit" class="btn">Cambiar Contraseña</button>
+    </form>
+
+    <div class="link">
+      <a href="javascript:window.history.back()">Volver al inicio</a>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="cerrar-modal" class="btn-cerrar">Cerrar</button>
+    </div>
+  </div>
+</body>
+</html>

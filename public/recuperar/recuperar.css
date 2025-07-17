@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('../img/home.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-icon {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(50, 50, 50, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.form-title {
+  text-align: center;
+  color: limegreen;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 35px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn {
+  margin-top: 20px;
+  background-color: limegreen;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #28a745;
+}
+
+.link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+
+.link a:hover {
+  text-decoration: underline;
+}
+
+.link a {
+  color: limegreen;;
+  text-decoration: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+  .modal.hidden {
+  display: none;
+  }
+
+.modal-content {
+  background: black;
+  color: limegreen;           
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+#cerrar-modal {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  display: inline-block;  
+}
+
+#cerrar-modal:hover {
+  background-color: #218838;
+}

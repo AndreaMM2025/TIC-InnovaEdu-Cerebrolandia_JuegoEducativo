@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  color: white;
+  background-image: url("../img/inicio.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+header {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 0.5em;
+  text-align: center;
+  font-size: 1.5em;
+  color: #00ff00;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav {
+  background-color: rgba(204, 204, 0, 0.6);
+  backdrop-filter: blur(4px);
+  position: sticky;
+  top: 3em;
+  z-index: 999;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+nav li,
+nav a {
+  flex: 1;
+  text-align: center;
+  padding: 1em 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: transparent;
+  min-width: 150px;
+}
+
+nav li:hover,
+nav a:hover {
+  background-color: rgba(255, 255, 0, 0.4);
+}
+
+nav li.active {
+  background-color: rgba(255, 255, 170, 0.7);
+  box-shadow: 0 4px 8px rgba(255, 255, 0, 0.3);
+}
+
+main {
+  flex: 1;
+  padding: 2em;
+  display: grid;
+  gap: 1.5em;
+  grid-template-columns: 1fr;
+}
+
+.contenido {
+  display: none;
+  padding: 1.5em;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.visible {
+  display: block;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #ccc;
+  text-align: center;
+  padding: 1em;
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+  font-size: 0.9em;
+}
+
+.quienes {
+  background-color: #808080;
+}
+
+.dirigido {
+  background-color: #1e90ff;
+}
+
+.info {
+  background-color: #32cd32;
+}
+
+.tips {
+  background-color: #cc3333;
+}
