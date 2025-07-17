@@ -1,5 +1,17 @@
-1.- ---instala librerias---  ejecutar en consola  --> npm i express mongoose body_paser express-session   
+1.- --- Instala librerías ---
+Ejecutar este comando en la consola:
+npm i express mongoose body-parser express-session
 
-2.- --- activar el cluster0 mongoDb configurar el archivo config con credenciales.
+2.- --- Activar el Cluster0 de MongoDB ---
+- Abrir MongoDB Atlas.
+- Ir a "Clusters", seleccionar "Cluster0".
+- Dar clic en "Connect", luego en la opción "Drivers".
+- Ahí aparece un URL que debes copiar.
+- En ese link, reemplazar donde dice <db-password> con la contraseña que se creó al generar el usuario del cluster.
+- Ese link se configura dentro del archivo config.js , para que la app pueda conectarse a la base de datos.
 
-3.- --- ejecutar comando "npm start" para incial la aplicacion.
+3.- --- Iniciar la aplicación ---
+Ejecutar en consola:
+npm start
+
+
