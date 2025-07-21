@@ -4,4 +4,4 @@ Un espacio creado para estudiantes de unidades educativas, donde aprender es una
 ¡Descubre cuánto puedes aprender mientras juegas!
 
 Integrantes del proyecto:
-Andrea Murillo
+- Andrea Murillo
