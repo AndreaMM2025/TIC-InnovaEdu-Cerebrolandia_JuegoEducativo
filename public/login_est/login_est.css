@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../img/home.jpg");
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, sans-serif;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+
+.login-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px 25px; 
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: white;
+  width: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+}
+
+.icon {
+  width: 80px;
+}
+
+.back-icon {
+  width: 25px;
+  position: absolute;
+  top: 15px; 
+  left: 15px; 
+  cursor: pointer;
+  z-index: 10;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #0ee22b;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.input-group span {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn {
+  width: 100%;
+  background-color: limegreen;;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.link {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.link a {
+  color: limegreen;;
+  text-decoration: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+  .modal.hidden {
+  display: none;
+  }
+
+.modal-content {
+  background: black;
+  color: limegreen;           
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+#cerrar-modal {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  display: inline-block;  
+}
+
+#cerrar-modal:hover {
+  background-color: #218838;
+}

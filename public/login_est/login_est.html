@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Estudiante</title>
+  <link rel="stylesheet" href="../login_est/login_est.css" />
+  <script src="../login_est/login_est.js" defer></script>
+</head>
+<body>
+  <img src="../img/back.png" alt="Volver" class="back-icon" onclick="window.location.href='/'" />
+  <div class="login-container">
+    <div class="login-box">
+      <div class="icon-container">
+        <img src="../img/estu.png" alt="Estudiante" class="icon" />
+      </div>
+      <h2>Iniciar Sesión - Estudiante</h2>
+      <form onsubmit="iniciarSesion(event)">
+        <div class="input-group">
+          <input type="text" id="correo" placeholder="Correo" required />
+        </div>
+        <div class="input-group">
+          <input type="password" id="contrasena" placeholder="Contraseña" required />
+          <span id="toggle-password">👁️</span>
+        </div>
+        <div class="link">
+          <a href="../recuperar/recuperar.html">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button type="submit" class="btn">Ingresar</button>
+      </form>
+      <div class="link register">
+        ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <p id="modal-message"></p>
+    <button id="cerrar-modal">Cerrar</button>
+  </div>
+</div>
+
+
+</body>
+</html>

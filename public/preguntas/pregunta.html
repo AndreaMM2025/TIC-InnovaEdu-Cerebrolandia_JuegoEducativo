@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agregar Pregunta</title>
+  <link rel="stylesheet" href="../preguntas/pregunta.css" />
+  <script src="../preguntas/pregunta.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="user-info">
+      <img src="../img/doce.png" alt="icono perfil" class="icono" />
+      <label id="nombreUsuario"></label>
+    </div>
+    <button id="cerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h2>Agregar Pregunta</h2>
+      <form id="preguntaForm">
+        <label for="enunciado">Enunciado:</label>
+        <textarea id="enunciado" required></textarea>
+
+        <label>Opciones:</label>
+        <div id="opcionesContainer">
+          <div class="opcion">
+            <input type="text" placeholder="Opción 1" required />
+            <input type="radio" name="correcta" value="0" required />
+          </div>
+          <div class="opcion">
+            <input type="text" placeholder="Opción 2" required />
+            <input type="radio" name="correcta" value="1" required />
+          </div>
+          <div class="opcion">
+            <input type="text" placeholder="Opción 3" required />
+            <input type="radio" name="correcta" value="2" required />
+          </div>
+          <div class="opcion">
+            <input type="text" placeholder="Opción 4" required />
+            <input type="radio" name="correcta" value="3" required />
+          </div>
+        </div>
+
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" required>
+          <option value="">Seleccione una categoría</option>
+          <option value="ciencias">Ciencias</option>
+          <option value="matematicas">Matemáticas</option>
+          <option value="lenguaje">Lenguaje</option>
+          <option value="historia">Historia</option>
+        </select>
+
+        <button type="submit">Guardar Pregunta</button>
+      </form>
+      <p id="mensaje"></p>
+    </div>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="cerrar-modal">Cerrar</button>
+    </div>
+  </div>
+</body>
+</html>
+
+

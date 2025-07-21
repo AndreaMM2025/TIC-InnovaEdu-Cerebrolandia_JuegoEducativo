@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  background-image: url("../img/home.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  height: 100%;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #001f3f;
+  padding: 10px 20px;
+  z-index: 1000;
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info .icono {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#cerrarSesion {
+  background-color: #ff4136;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.form-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  max-width: 600px;
+  width: 90%;
+  text-align: left;
+  color: limegreen; 
+  position: relative;
+  z-index: 10;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: black;
+  color: limegreen;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+#cerrar-modal {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#cerrar-modal:hover {
+  background-color: #218838;
+}
+
+.hidden {
+  display: none;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+  background-color: #111; /* fondo oscuro */
+  color: limegreen;
+  border: 1px solid limegreen;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-container input[type="radio"] {
+  width: auto;
+}
+
+
+.form-container button[type="submit"] {
+  background-color: limegreen;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px limegreen;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #00cc00;
+}

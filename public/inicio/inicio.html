@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerebrolandia</title>
+  <link rel="stylesheet" href="../inicio/inicio.css" />
+  <script src="../inicio/inicio.js"></script>
+</head>
+<body>
+  <header>
+    <div class="user-info">
+      <img src="../img/estu.png" alt="icono perfil" class="icono" />
+      <label id="nombreUsuario"></label>
+    </div>
+    <button id="cerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <main>
+  <div class="cuadro-central">
+    <div class="titulo-logo">
+      <img src="../img/Lakitu.webp" alt="Logo Cerebrolandia" class="logo" />
+      <h1>Comienza tu aventura en Cerebrolandia!</h1>
+    </div>
+      <ul class="lista-aventura">
+        <li>
+          <img src="../img/estrella.png" alt="estrella" class="iconito" />
+          <span>Bienvenido a un mundo donde aprender es divertido. Desarrolla tus habilidades cognitivas mientras juegas y exploras distintos retos educativos.</span>
+        </li>
+        <li>
+          <img src="../img/estrella.png" alt="bombilla" class="iconito" />
+          <span>Perfecto para estudiantes curiosos y creativos.</span>
+        </li>
+        <li>
+          <img src="../img/estrella.png" alt="cohete" class="iconito" />
+          <span>Prepárate para un viaje inolvidable lleno de conocimiento.</span>
+        </li>
+      </ul>
+
+    <button id="jugarBtn">🎮 ¡A Jugar y Divertirse!</button>
+  </div>
+</main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="cerrar-modal" class="btn-cerrar">Cerrar</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  background-image: url("../img/home.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  height: 100%;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #001f3f;
+  padding: 10px 20px;
+  z-index: 1000;
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info .icono {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#cerrarSesion {
+  background-color: #ff4136;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#bienvenida {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  text-align: center;
+}
+
+.titulo-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.titulo-logo.columna {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+}
+
+#bienvenida h1 {
+  font-size: 24px;
+  color: limegreen;
+  margin: 0;
+}
+
+.lista-panel {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  color: #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.lista-panel li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.lista-panel li .iconito {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+#jugarBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: limegreen;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 5px #00cc55;
+}
+
+#jugarBtn:hover {
+  background-color: #00cc55;
+}
+
+#jugarBtn .iconito-btn {
+  width: 24px;
+  height: 24px;
+}
+
+#jugarBtn .texto-btn {
+  font-size: 16px;
+  line-height: 1;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.triangulo-botones {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 998;
+}
+
+.boton-panel {
+  position: absolute;
+  background-color: limegreen;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0 0 8px #00cc55;
+  transition: background-color 0.3s ease;
+}
+
+.boton-panel:hover {
+  background-color: #00cc55;
+}
+
+.superior {
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.izquierdo {
+  bottom: 15%;
+  left: 20%;
+}
+
+.derecho {
+  bottom: 15%;
+  right: 20%;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: black;
+  color: limegreen;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+#cerrar-modal {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#cerrar-modal:hover {
+  background-color: #218838;
+}
+
+.hidden {
+  display: none;
+}
+
+#panelBotones {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 60px;
+}
+
+#panelBotones a,
+#panelBotones button {
+  font-size: 1.6rem;
+  padding: 20px 40px;
+  border-radius: 15px;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Estudiante</title>
+  <link rel="stylesheet" href="style_registroE.css">
+  <script src="script_registroE.js"></script>
+
+</head>
+
+<body>
+    <img src="../img/back.png" alt="Volver" class="back-icon" onclick="window.location.href='/login'" />
+
+  <div class="form-container">
+
+    <h2 class="login-title">Registro Estudiante</h2>
+
+    <form class="formulario" onsubmit="return guardar_datos(event)">
+      <label for="cedula">Cédula:</label>
+      <input type="text" id="cedula" placeholder="Número de cédula" />
+
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" placeholder="Nombre" />
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" placeholder="Apellido" />
+
+      <label for="correo_electronico">Correo Electrónico:</label>
+      <input type="text" id="correo_electronico" placeholder="Email" />
+
+      <label for="contraseña">Contraseña:</label>
+        <div class="password-wrapper">
+        <input type="password" id="contraseña" placeholder="Contraseña" />
+        <span id="toggle-password" class="eye-button">👁️</span>
+        </div>
+
+
+
+      <div id="error-msg"></div>
+
+      <div class="checkbox-container">
+        <input type="checkbox" id="terminosEstudiante" required />
+        <label for="terminosEstudiante">Acepto la política de protección de datos.</label>
+      </div>
+
+      <button type="submit">Registrarse</button>
+
+      <p class="link-text">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
+    </form>
+  </div>
+  
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="cerrar-modal" class="btn-cerrar">Cerrar</button>
+    </div>
+  </div>
+</body>
+</html>
+
