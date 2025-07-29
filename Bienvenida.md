@@ -5,3 +5,5 @@ Un espacio creado para estudiantes de unidades educativas, donde aprender es una
 
 Integrantes del proyecto:
 - Andrea Murillo
+- Fabricio Yagual
+- Jairo Hidalgo
