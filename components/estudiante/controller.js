@@ -29,12 +29,20 @@ async function update_Estudiante(estudiante) {
   }
 }
 
-function delete_Estudiante( estudiante ) {
-    return new Promise((resolve, reject) => {
-        storage.delete( estudiante )
-        resolve( estudiante )
-    })
+function delete_Estudiante(cedula) {
+  return new Promise((resolve, reject) => {
+    storage.delete(cedula)
+      .then((result) => {
+        if (result.deletedCount === 0) {
+          reject("No se encontró estudiante con esa cédula");
+        } else {
+          resolve({ mensaje: "Eliminado correctamente" });
+        }
+      })
+      .catch(reject);
+  });
 }
+
 
 async function login_Estudiante(email, contrasena) {
   const estudiante = await storage.findByEmail(email);

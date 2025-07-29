@@ -51,10 +51,11 @@ route.put('/', async function (req, res) {
 
 
 
-route.delete('/', function(req, res) {
-    controller.delete_Estudiante( req.body ) 
-        .then( (data) => response.success(req, res, data, 200) )
-        .catch( (error) => response.error(req, res, error, 500) )
-})
+route.delete('/:cedula', function(req, res) {
+  const cedula = req.params.cedula;
+  controller.delete_Estudiante(cedula)
+    .then((data) => response.success(req, res, data, 200))
+    .catch((error) => response.error(req, res, error, 500));
+});
 
 module.exports = route

@@ -53,8 +53,8 @@ async function update_Estudiante(estudiante) {
   }
 }
 
-async function delete_Estudiante( estudiante ) {
-    return await model.deleteOne({cedula: estudiante.cedula})
+async function delete_Estudiante(cedula) {
+    return await model.deleteOne({ cedula: cedula });
 }
 
 async function findByEmail(email) {
