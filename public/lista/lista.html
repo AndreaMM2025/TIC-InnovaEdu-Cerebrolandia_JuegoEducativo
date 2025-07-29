@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Estudiantes</title>
+  <link rel="stylesheet" href="../lista/lista.css">
+  <script defer src="../lista/lista.js"></script>
+</head>
+<body>
+  <header>
+    <div class="user-info">
+      <img src="../img/doce.png" alt="icono perfil" class="icono" />
+      <label id="nombreUsuario"></label>
+    </div>
+    <button id="cerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>
+        Estudiantes Registrados
+        <button id="btnActualizar" class="actualizar-btn">Actualizar</button>
+      </h2>
+      <div id="listaEstudiantes"></div>
+    </section>
+  </main>
+
+ 
+  <div id="modal-estudiante" class="modal hidden">
+    <div class="modal-content">
+      <h3>Detalles del Estudiante</h3>
+      <p><strong>Cédula:</strong> <span id="modal-cedula"></span></p>
+      <p><strong>Nombre:</strong> <span id="modal-nombre"></span></p>
+      <p><strong>Apellido:</strong> <span id="modal-apellido"></span></p>
+      <p><strong>Email:</strong> <span id="modal-email"></span></p>
+      <button id="cerrar-modal-estudiante">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modalConfirmar" class="modal-confirmar oculto">
+    <div class="modal-contenido">
+      <p id="mensajeConfirmar">¿Deseas eliminar?</p>
+      <div class="modal-botones">
+        <button id="btnConfirmar" class="btn-verde">Sí</button>
+        <button id="btnCancelar" class="btn-rojo">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="cerrar-modal">Cerrar</button>
+    </div>
+  </div>
+</body>
+</html>

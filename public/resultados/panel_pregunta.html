@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestionar Preguntas</title>
-  <link rel="stylesheet" href="../preguntas/pregunta.css" />
-  <script defer src="../preguntas/pregunta.js"></script>
+  <link rel="stylesheet" href="../resultados/panel_pregunta.css" />
+  <script defer src="../resultados/panel_pregunta.js"></script>
 </head>
+
 <body>
   <header>
     <div class="user-info">
@@ -15,12 +16,11 @@
     </div>
     <button id="cerrarSesion">Cerrar sesión</button>
   </header>
-
   <main>
     <section class="panel">
       <h2>Preguntas Creadas</h2>
       <button id="btnMostrarFormulario">+ Agregar Pregunta</button>
-      <button id="btnActualizarFormulario">Actualizar Preguntas</button>
+      <button id="btnActualizarFormulario"> Actualizar Preguntas</button>
       <div id="listaPreguntas"></div>
     </section>
   </main>
@@ -57,55 +57,13 @@
             <option value="matematicas">Matemáticas</option>
             <option value="ciencias">Ciencias</option>
             <option value="historia">Historia</option>
-            <option value="lenguaje">Lenguaje</option>
+            <option value="historia">Lenguaje</option>
           </select>
         </label>
+
         <div class="botones-modal">
           <button type="submit">Guardar Pregunta</button>
           <button type="button" id="cerrarFormulario">Cancelar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Ver -->
-  <div id="modalVisualizarPregunta" class="modal oculto">
-    <div class="modal-contenido form-container">
-      <h3>Visualizar Pregunta</h3>
-      <label>Enunciado:</label>
-      <textarea id="visualizarEnunciado" readonly></textarea>
-      <label>Opciones:</label>
-      <div class="opciones" id="visualizarOpcionesContainer"></div>
-      <label>Categoría:</label>
-      <input type="text" id="visualizarCategoria" readonly>
-      <div class="botones-modal">
-        <button type="button" id="cerrarVisualizar">Cerrar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="modalModificarPregunta" class="modal oculto">
-    <div class="modal-contenido form-container">
-      <h3>Modificar Pregunta</h3>
-      <form id="formModificarPregunta">
-        <input type="hidden" name="id" id="modificarId">
-        <label>Enunciado:
-          <textarea name="enunciado" id="modificarEnunciado" required></textarea>
-        </label>
-        <label>Opciones:</label>
-        <div class="opciones" id="modificarOpciones"></div>
-        <label>Categoría:
-          <select name="categoria" id="modificarCategoria" required>
-            <option value="">Seleccione una categoría</option>
-            <option value="matematicas">Matemáticas</option>
-            <option value="ciencias">Ciencias</option>
-            <option value="historia">Historia</option>
-            <option value="lenguaje">Lenguaje</option>
-          </select>
-        </label>
-        <div class="botones-modal">
-          <button type="submit">Guardar Cambios</button>
-          <button type="button" id="cerrarFormulario" onclick="document.getElementById('modalModificarPregunta').classList.add('oculto')">Cancelar</button>
         </div>
       </form>
     </div>
@@ -120,12 +78,6 @@
       </div>
     </div>
   </div>
-
-  <div id="modal" class="modal oculto">
-    <div class="modal-content">
-      <p id="modal-message"></p>
-      <button id="cerrar-modal">Cerrar</button>
-    </div>
-  </div>
 </body>
 </html>
+

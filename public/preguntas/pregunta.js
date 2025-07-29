@@ -1,98 +1,198 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const nombre = localStorage.getItem('nombre_doc');
-  const apellido = localStorage.getItem('apellido_doc');
-  const labelUsuario = document.getElementById('nombreUsuario');
-
+  const nombre = localStorage.getItem("nombre_doc");
+  const apellido = localStorage.getItem("apellido_doc");
+  const labelUsuario = document.getElementById("nombreUsuario");
   if (nombre && apellido) {
     labelUsuario.textContent = `Docente ${nombre} ${apellido}`;
   }
 
-  const cerrarSesionBtn = document.getElementById('cerrarSesion');
-  if (cerrarSesionBtn) {
-    cerrarSesionBtn.addEventListener('click', async () => {
-      try {
-        const response = await fetch('/logout', {
-          method: 'GET',
-          credentials: 'include'
-        });
+  const modal = document.getElementById("modal");
+  const mensaje = document.getElementById("modal-message");
+  const cerrarModal = document.getElementById("cerrar-modal");
 
-        if (response.ok) {
-          localStorage.removeItem('nombre_doc');
-          localStorage.removeItem('apellido_doc');
-          mostrarModal('Sesión cerrada');
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 2000);
-        } else {
-          mostrarModal('Error al cerrar sesión');
-        }
-      } catch (error) {
-        console.error("Error al cerrar sesión:", error);
-        mostrarModal('Error al cerrar sesión');
-      }
-    });
+  const mostrarModal = (texto) => {
+    mensaje.textContent = texto;
+    modal.classList.remove("hidden");
+  };
+  cerrarModal.onclick = () => modal.classList.add("hidden");
+
+  document.getElementById("btnMostrarFormulario").onclick = () => {
+    document.getElementById("modalFormulario").classList.remove("oculto");
+  };
+  document.getElementById("cerrarFormulario").onclick = () => {
+    document.getElementById("modalFormulario").classList.add("oculto");
+    document.getElementById("formPregunta").reset();
+  };
+
+  document.getElementById("cerrarSesion").addEventListener("click", () => {
+    localStorage.clear();
+    mostrarModal("Sesión cerrada");
+    setTimeout(() => {
+      window.location.href = "/logout";
+    }, 2000);
+  });
+
+  async function cargarPreguntas() {
+    const contenedor = document.getElementById("listaPreguntas");
+    contenedor.innerHTML = "";
+    try {
+      const res = await fetch("/pregunta");
+      const resultado = await res.json();
+
+      const preguntas = Array.isArray(resultado)
+        ? resultado
+        : resultado.data;
+
+      if (!Array.isArray(preguntas)) throw new Error("Respuesta no válida");
+
+      preguntas.forEach((pregunta) => {
+        const div = document.createElement("div");
+        div.className = "pregunta-item";
+        div.innerHTML = `
+          <p>${pregunta.enunciado}</p>
+          <div class="acciones">
+            <button class="ver" onclick="verPregunta('${pregunta._id}')">Ver</button>
+            <button class="modificar" onclick="editarPregunta('${pregunta._id}')">Modificar</button>
+            <button class="eliminar" onclick="confirmarEliminacion('${pregunta._id}')">Eliminar</button>
+          </div>
+        `;
+        contenedor.appendChild(div);
+      });
+    } catch (err) {
+      console.error(err);
+      mostrarModal("Error al cargar preguntas");
+    }
   }
 
-  document.getElementById('preguntaForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const enunciado = document.getElementById('enunciado').value.trim();
-    const categoria = document.getElementById('categoria').value;
-    const opcionesInputs = document.querySelectorAll('#opcionesContainer .opcion input[type="text"]');
-    const correctasRadios = document.querySelectorAll('input[name="correcta"]');
-
-    const opciones = Array.from(opcionesInputs).map(input => input.value.trim());
-    const correcta = Array.from(correctasRadios).find(r => r.checked)?.value;
-
-    if (opciones.some(op => op === '') || correcta === undefined || !enunciado || !categoria) {
-      document.getElementById('mensaje').textContent = 'Completa todos los campos correctamente.';
-      return;
+  window.verPregunta = async (id) => {
+    try {
+      const res = await fetch(`/pregunta/${id}`);
+      const { data: pregunta } = await res.json();
+      document.getElementById("visualizarEnunciado").value = pregunta.enunciado;
+      const opcionesContainer = document.getElementById("visualizarOpcionesContainer");
+      opcionesContainer.innerHTML = "";
+      pregunta.opciones.forEach((op, i) => {
+        const p = document.createElement("p");
+        p.textContent = `${i + 1}. ${op}` + (i == pregunta.correcta ? " ✔" : "");
+        opcionesContainer.appendChild(p);
+      });
+      document.getElementById("visualizarCategoria").value = pregunta.categoria;
+      document.getElementById("modalVisualizarPregunta").classList.remove("oculto");
+    } catch (err) {
+      mostrarModal("Error al visualizar pregunta");
     }
+  };
+  document.getElementById("cerrarVisualizar").onclick = () => {
+    document.getElementById("modalVisualizarPregunta").classList.add("oculto");
+  };
 
-    const nuevaPregunta = {
-      enunciado,
-      opciones,
-      correcta: Number(correcta),
-      categoria
+  document.getElementById("formPregunta").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const pregunta = {
+      enunciado: data.get("enunciado"),
+      opciones: data.getAll("opciones[]"),
+      correcta: parseInt(data.get("correcta")),
+      categoria: data.get("categoria"),
     };
 
     try {
-      const res = await fetch('http://localhost:3000/preguntas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nuevaPregunta)
+      const res = await fetch("/pregunta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pregunta),
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Error al guardar la pregunta');
-      }
-
-      document.getElementById('mensaje').textContent = 'Pregunta guardada correctamente.';
-      document.getElementById('preguntaForm').reset();
+      if (!res.ok) throw new Error("Error al guardar");
+      form.reset();
+      document.getElementById("modalFormulario").classList.add("oculto");
+      mostrarModal("Pregunta guardada correctamente");
+      cargarPreguntas();
     } catch (err) {
-      document.getElementById('mensaje').textContent = `Error: ${err.message}`;
+      mostrarModal("Error al guardar pregunta");
     }
   });
-});
 
-function mostrarModal(mensaje) {
-  const modal = document.getElementById("modal");
-  const modalMsg = document.getElementById("modal-message");
-  const cerrarBtn = document.getElementById("cerrar-modal");
+  window.editarPregunta = async (id) => {
+    try {
+      const res = await fetch(`/pregunta/${id}`);
+      const { data: pregunta } = await res.json();
+      document.getElementById("modificarId").value = pregunta._id;
+      document.getElementById("modificarEnunciado").value = pregunta.enunciado;
 
-  if (!modal || !modalMsg || !cerrarBtn) return;
+      const opcionesDiv = document.getElementById("modificarOpciones");
+      opcionesDiv.innerHTML = "";
+      pregunta.opciones.forEach((op, i) => {
+        const div = document.createElement("div");
+        div.className = "opcion-item";
+        div.innerHTML = `
+          <input type="text" name="opciones[]" value="${op}" required>
+          <input type="radio" name="correcta" value="${i}" ${i == pregunta.correcta ? "checked" : ""}>
+        `;
+        opcionesDiv.appendChild(div);
+      });
 
-  modalMsg.textContent = mensaje;
-  modal.classList.remove("hidden");
-
-  const ocultar = () => {
-    modal.classList.add("hidden");
-    cerrarBtn.removeEventListener("click", ocultar);
+      document.getElementById("modificarCategoria").value = pregunta.categoria;
+      document.getElementById("modalModificarPregunta").classList.remove("oculto");
+    } catch (err) {
+      mostrarModal("Error al cargar pregunta");
+    }
   };
 
-  cerrarBtn.addEventListener("click", ocultar);
-  setTimeout(ocultar, 3000);
-}
+  document.getElementById("formModificarPregunta").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const id = data.get("id");
+    const pregunta = {
+      enunciado: data.get("enunciado"),
+      opciones: data.getAll("opciones[]"),
+      correcta: parseInt(data.get("correcta")),
+      categoria: data.get("categoria"),
+    };
+
+    try {
+      const res = await fetch(`/pregunta/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pregunta),
+      });
+      if (!res.ok) throw new Error("Error al modificar");
+      form.reset();
+      document.getElementById("modalModificarPregunta").classList.add("oculto");
+      mostrarModal("Pregunta modificada correctamente");
+      cargarPreguntas();
+    } catch (err) {
+      mostrarModal("Error al modificar pregunta");
+    }
+  });
+
+  let idAEliminar = null;
+  window.confirmarEliminacion = (id) => {
+    idAEliminar = id;
+    document.getElementById("modalConfirmacion").classList.remove("oculto");
+  };
+  document.getElementById("btnCancelarEliminar").onclick = () => {
+    idAEliminar = null;
+    document.getElementById("modalConfirmacion").classList.add("oculto");
+  };
+  document.getElementById("btnConfirmarEliminar").onclick = async () => {
+    try {
+      const res = await fetch(`/pregunta/${idAEliminar}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Error al eliminar");
+      mostrarModal("Pregunta eliminada");
+      cargarPreguntas();
+    } catch (err) {
+      mostrarModal("Error al eliminar pregunta");
+    } finally {
+      document.getElementById("modalConfirmacion").classList.add("oculto");
+    }
+  };
+
+  document.getElementById("btnActualizarFormulario").onclick = cargarPreguntas;
+
+  cargarPreguntas();
+});
 

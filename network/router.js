@@ -76,6 +76,16 @@ const routes = (server) => {
     const filePath = path.join(__dirname, '..', 'public', 'preguntas', 'pregunta.html');
     res.sendFile(filePath);
   });
+
+  server.get('/resultados', verificarSesionDocente, (req, res) => {
+    const filePath = path.join(__dirname, '..', 'public', 'resultados', 'panel_pregunta.html');
+    res.sendFile(filePath);
+  });
+
+  server.get('/lista', verificarSesionDocente, (req, res) => {
+    const filePath = path.join(__dirname, '..', 'public', 'lista', 'lista.html');
+    res.sendFile(filePath);
+  });
   
   server.use('/estudiante', estudiante);
 

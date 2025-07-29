@@ -188,17 +188,6 @@ header {
   transition: background-color 0.3s ease;
 }
 
-#cerrarVisualizar {
-  background-color: #dc3545;
-  color: white;
-  font-weight: bold;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
 #cerrarFormulario:hover {
   background-color: #a72c2c;
 }
@@ -206,7 +195,6 @@ header {
 .oculto {
   display: none;
 }
-
 
 .opciones {
   display: flex;
@@ -258,4 +246,3 @@ header {
   color: black;
   box-shadow: 0 0 8px red;
 }
-

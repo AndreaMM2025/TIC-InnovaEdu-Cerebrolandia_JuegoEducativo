@@ -2,13 +2,21 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Courier New', monospace;
-  background-image: url("../img/home.jpg");
+  background-image: url("/img/home.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   color: white;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+main {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 header {
@@ -17,7 +25,7 @@ header {
   align-items: center;
   background-color: #001f3f;
   padding: 10px 20px;
-  z-index: 1000;
+  z-index: 2000;
   position: relative;
 }
 
@@ -26,7 +34,7 @@ header {
   align-items: center;
 }
 
-.user-info .icono {
+.icono {
   width: 30px;
   height: 30px;
   margin-right: 10px;
@@ -47,7 +55,6 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 999;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 15px;
   padding: 20px;
@@ -55,21 +62,15 @@ header {
   max-width: 600px;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
   text-align: center;
+  z-index: 100;
 }
 
 .titulo-logo {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-  text-align: center;
-}
-
-.titulo-logo.columna {
   flex-direction: column;
+  align-items: center;
   gap: 10px;
+  margin-bottom: 25px;
 }
 
 .logo {
@@ -86,22 +87,21 @@ header {
 .lista-panel {
   list-style: none;
   padding: 0;
-  text-align: left;
   color: #ddd;
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-top: 20px;
+  text-align: left;
 }
 
 .lista-panel li {
   display: flex;
-  align-items: flex-start;
   gap: 10px;
   line-height: 1.4;
 }
 
-.lista-panel li .iconito {
+.iconito {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -121,28 +121,20 @@ header {
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 0 5px #00cc55;
+  margin-top: 20px;
 }
 
 #jugarBtn:hover {
   background-color: #00cc55;
 }
 
-#jugarBtn .iconito-btn {
+.iconito-btn {
   width: 24px;
   height: 24px;
 }
 
-#jugarBtn .texto-btn {
+.texto-btn {
   font-size: 16px;
-  line-height: 1;
-}
-
-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 .triangulo-botones {
@@ -160,20 +152,21 @@ main {
   color: black;
   font-weight: bold;
   border: none;
-  border-radius: 12px;
-  padding: 12px 24px;
+  border-radius: 20px;
+  padding: 36px 72px;
   text-decoration: none;
-  font-size: 16px;
-  box-shadow: 0 0 8px #00cc55;
-  transition: background-color 0.3s ease;
+  font-size: 32px;
+  box-shadow: 0 0 20px #00cc55;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .boton-panel:hover {
   background-color: #00cc55;
 }
 
+
 .superior {
-  top: 15%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -190,10 +183,7 @@ main {
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.4);
   display: flex;
   align-items: center;
@@ -235,18 +225,4 @@ main {
 
 .hidden {
   display: none;
-}
-
-#panelBotones {
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  margin-top: 60px;
-}
-
-#panelBotones a,
-#panelBotones button {
-  font-size: 1.6rem;
-  padding: 20px 40px;
-  border-radius: 15px;
 }

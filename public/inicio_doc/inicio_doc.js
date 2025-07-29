@@ -36,15 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const btnJugar = document.getElementById('jugarBtn');
   const cuadroCentral = document.querySelector('.cuadro-central');
+  const panelBotones = document.getElementById('panelBotones');
 
-  if (btnJugar && cuadroCentral) {
+  if (btnJugar && cuadroCentral && panelBotones) {
     btnJugar.addEventListener('click', () => {
-      cuadroCentral.style.opacity = 1;
       cuadroCentral.style.transition = "opacity 0.5s ease";
       cuadroCentral.style.opacity = 0;
 
       setTimeout(() => {
         cuadroCentral.classList.add("hidden");
+        panelBotones.classList.remove("hidden");
       }, 500);
     });
   }
@@ -69,4 +70,3 @@ function mostrarModal(mensaje) {
 
   setTimeout(ocultar, 3000);
 }
-

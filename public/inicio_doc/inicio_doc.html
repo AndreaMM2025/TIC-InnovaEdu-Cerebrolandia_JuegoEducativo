@@ -1,69 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Docente</title>
-  <link rel="stylesheet" href="../inicio_doc/inicio_doc.css" />
-  <script src="../inicio_doc/inicio_doc.js" defer></script>
-</head>
-<body>
-  <header>
-    <div class="user-info">
-      <img src="../img/doce.png" alt="icono perfil" class="icono" />
-      <label id="nombreUsuario"></label>
-    </div>
-    <button id="cerrarSesion">Cerrar sesión</button>
-  </header>
-
-  <main>
-    <div class="cuadro-central">
-      <div class="titulo-logo columna">
-          <img src="../img/bowser.png" alt="Logo Cerebrolandia" class="logo" />
-          <h1>Bienvenido Docente</h1>
-      </div>
-
-        <ul class="lista-panel">
-          <li>
-            <img src="../img/estrella.png" alt="Panel" class="iconito" />
-            <span>Este será tu panel para gestionar y monitorear el aprendizaje de tus estudiantes.</span>
-          </li>
-          <li>
-            <img src="../img/estrella.png" alt="Estadísticas" class="iconito" />
-            <span>Aquí podrás crear retos, revisar estadísticas y más.</span>
-          </li>
-          <li>
-            <img src="../img/estrella.png" alt="Funcionalidades" class="iconito" />
-            <span>Estamos trabajando en nuevas funcionalidades para ti.</span>
-          </li>
-        </ul>
-        <button id="jugarBtn" title="Ir al Panel de Control">
-          <img src="../img/estrella.png" alt="Ir al Panel" class="iconito-btn" />
-          <span class="texto-btn">Ir al Panel de Control</span>
-        </button>
-    </div>
-
-    
-
-  </main>
-
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <p id="modal-message"></p>
-      <button id="cerrar-modal">Cerrar</button>
-    </div>
-  </div>
-
-    <div class="triangulo-botones hidden" id="panelBotones">
-      <a href="/estudiantes" class="boton-panel superior">Estudiantes</a>
-      <a href="/preguntas" class="boton-panel izquierdo">Preguntas</a>
-      <a href="/resultados" class="boton-panel derecho">Resultados</a>
-    </div>
-
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -110,8 +44,8 @@
   </section>
 
   <main>
-    <section id="panelBotones" class="triangulo-botones">
-      <a href="/estudiantes" class="boton-panel superior">Estudiantes</a>
+    <section id="panelBotones" class="triangulo-botones hidden">
+      <a href="/lista" class="boton-panel superior">Estudiantes</a>
       <a href="/preguntas" class="boton-panel izquierdo">Preguntas</a>
       <a href="/resultados" class="boton-panel derecho">Resultados</a>
     </section>
