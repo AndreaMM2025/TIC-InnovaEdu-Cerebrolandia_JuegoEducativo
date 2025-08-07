@@ -1,3 +1,5 @@
+/* ✅ CSS REPARADO DEL PANEL DE PREGUNTAS DOCENTE */
+
 body {
   margin: 0;
   padding: 0;
@@ -17,6 +19,19 @@ header {
   justify-content: space-between;
   align-items: center;
   color: white;
+  position: relative;
+  z-index: 100;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.icono {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }
 
 #cerrarSesion {
@@ -41,18 +56,7 @@ main {
   margin-bottom: 30px;
 }
 
-#btnMostrarFormulario {
-  background-color: limegreen;
-  color: black;
-  padding: 10px 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  box-shadow: 0 0 8px limegreen;
-}
-
+#btnMostrarFormulario,
 #btnActualizarFormulario {
   background-color: limegreen;
   color: black;
@@ -63,6 +67,7 @@ main {
   margin-bottom: 20px;
   cursor: pointer;
   box-shadow: 0 0 8px limegreen;
+  margin-right: 10px;
 }
 
 #listaPreguntas {
@@ -80,6 +85,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .pregunta-item .acciones button {
@@ -91,29 +97,19 @@ main {
   cursor: pointer;
 }
 
-.pregunta-item .ver { background-color: #17a2b8; color: white; }
-.pregunta-item .modificar { background-color: #ffc107; color: black; }
-.pregunta-item .eliminar { background-color: #dc3545; color: white; }
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #001f3f;
-  padding: 10px 20px;
-  z-index: 2000;
-  position: relative;
+.pregunta-item .ver {
+  background-color: #17a2b8;
+  color: white;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
+.pregunta-item .modificar {
+  background-color: #ffc107;
+  color: black;
 }
 
-.icono {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+.pregunta-item .eliminar {
+  background-color: #dc3545;
+  color: white;
 }
 
 .modal {
@@ -173,21 +169,7 @@ header {
   box-shadow: 0 0 10px limegreen;
 }
 
-.form-container button[type="submit"]:hover {
-  background-color: #00cc00;
-}
-
-#cerrarFormulario {
-  background-color: #dc3545;
-  color: white;
-  font-weight: bold;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
+#cerrarFormulario,
 #cerrarVisualizar {
   background-color: #dc3545;
   color: white;
@@ -203,10 +185,10 @@ header {
   background-color: #a72c2c;
 }
 
-.oculto {
-  display: none;
+.oculto,
+.hidden {
+  display: none !important;
 }
-
 
 .opciones {
   display: flex;
@@ -229,7 +211,6 @@ header {
 .opcion-item input[type="radio"] {
   transform: scale(1.2);
 }
-
 
 #btnConfirmarEliminar,
 #btnCancelarEliminar {
@@ -259,3 +240,49 @@ header {
   box-shadow: 0 0 8px red;
 }
 
+.nav-links {
+  display: flex;
+  gap: 100px;
+  margin-left: 20px;
+}
+
+.nav-links button {
+  background-color: #0074D9;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 5px #0074D9;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links button.activo {
+  background-color: #4CAF50;
+  cursor: default;
+  opacity: 0.8;
+  box-shadow: none;
+}
+
+.nav-links button:hover {
+  background-color: #005fa3;
+}
+
+#modalCerrarSesion .modal-contenido {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.mensaje-cierre {
+  color: limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}

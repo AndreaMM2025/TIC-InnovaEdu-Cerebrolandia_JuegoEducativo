@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerebrolandia - Juego</title>
+  <link rel="stylesheet" href="juego.css" />
+  <script src="./phaser.min.js"></script>
+  <script type="module" src="./game.js"></script>
+  <link rel="icon" href="../juego/assets/favicon.png" type="image/x-icon" />
+</head>
+<body>
+  <header>
+    <div class="user-info">
+      <img src="../img/estu.png" alt="icono perfil" class="icono" />
+      <label id="nombreUsuario"></label>
+    </div>
+    <button id="cerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <main>
+    <div class="game-container">
+      <div id="game"></div>
+    </div>
+  </main>
+
+   <div id="gameOverModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>¡Game Over!</h2>
+      <p>Intentalo nuevamente</p>
+      <button id="btnReiniciar" class="btn-cerrar">Reiniciar</button>
+    </div>
+  </div>
+
+  <div id="modalPregunta" class="modal hidden">
+    <div class="modal-content form-container">
+      <h3>Responde la Pregunta</h3>
+      <label>Enunciado:</label>
+      <textarea id="enunciado" readonly></textarea>
+      <div id="opciones" class="opciones"></div>
+    </div>
+  </div>
+
+  <div id="modalRespuesta" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="mensajeRespuesta"></h3>
+    </div>
+  </div>
+
+  <!-- Modal de preguntas pendientes -->
+  <!-- <div id="modalPendiente" class="modal">
+    <p id="mensajePendiente"></p>
+  </div> -->
+
+  <!-- Modal de felicitaciones -->
+  <!-- <div id="modalFelicidades" class="modal">
+    <p id="mensajeFelicidades"></p>
+    <button id="btnContinuar">Continuar</button>
+  </div> -->
+
+    <!-- Modal de preguntas pendientes -->
+  <div id="modalPendiente" class="modal hidden">
+    <div class="modal-content">
+      <p id="mensajePendiente" class="mensaje-rojo"></p>
+    </div>
+  </div>
+
+    <!-- Modal de felicitaciones -->
+  <div id="modalFelicidades" class="modal hidden">
+    <div class="modal-content">
+      <p id="mensajeFelicidades" class="mensaje-verde"></p>
+      <button id="btnContinuar">Continuar</button>
+    </div>
+  </div>
+
+
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+    </div>
+  </div>
+
+</body>
+</html>
+

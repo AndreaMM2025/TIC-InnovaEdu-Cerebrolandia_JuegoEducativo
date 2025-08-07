@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     labelUsuario.textContent = `Estudiante ${nombre} ${apellido}`;
   }
 
-document.getElementById('cerrarSesion').addEventListener('click', async () => {
+  document.getElementById('cerrarSesion').addEventListener('click', async () => {
   try {
     const response = await fetch('/logout', {
       method: 'GET',
@@ -26,11 +26,10 @@ document.getElementById('cerrarSesion').addEventListener('click', async () => {
     console.error("Error al cerrar sesión:", error);
     mostrarModal('Error al cerrar sesión');
   }
-});
+  });
 
 
   document.getElementById('jugarBtn').addEventListener('click', () => {
-    alert('¡Vamos a jugar!');
     window.location.href = "/juego";
   });
 });
@@ -39,17 +38,11 @@ document.getElementById('cerrarSesion').addEventListener('click', async () => {
 function mostrarModal(mensaje) {
   const modal = document.getElementById("modal");
   const modalMsg = document.getElementById("modal-message");
-  const cerrarBtn = document.getElementById("cerrar-modal");
 
   modalMsg.textContent = mensaje;
   modal.classList.remove("hidden");
 
-  const ocultar = () => {
+  setTimeout(() => {
     modal.classList.add("hidden");
-    cerrarBtn.removeEventListener("click", ocultar);
-  };
-
-  cerrarBtn.addEventListener("click", ocultar);
-
-  setTimeout(ocultar, 3000);
+  }, 3000);
 }

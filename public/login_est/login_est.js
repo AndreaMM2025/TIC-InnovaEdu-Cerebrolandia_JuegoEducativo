@@ -27,8 +27,9 @@ async function iniciarSesion(event) {
     const resultado = await respuesta.json().catch(() => ({}));
 
     if (respuesta.ok) {
-      const { nombre, apellido } = resultado.data;
-
+      const { _id, nombre, apellido } = resultado.data;
+      
+      localStorage.setItem('id', _id);
       localStorage.setItem('nombre', nombre);
       localStorage.setItem('apellido', apellido);
 
@@ -51,19 +52,12 @@ async function iniciarSesion(event) {
 function mostrarModal(mensaje) {
   const modal = document.getElementById("modal");
   const modalMsg = document.getElementById("modal-message");
-  const cerrarBtn = document.getElementById("cerrar-modal");
-
-  if (!modal || !modalMsg || !cerrarBtn) return;
 
   modalMsg.textContent = mensaje;
   modal.classList.remove("hidden");
 
-  const ocultar = () => {
+  setTimeout(() => {
     modal.classList.add("hidden");
-    cerrarBtn.removeEventListener("click", ocultar);
-  };
-
-  cerrarBtn.addEventListener("click", ocultar);
-  setTimeout(ocultar, 3000);
+  }, 3000);
 }
 

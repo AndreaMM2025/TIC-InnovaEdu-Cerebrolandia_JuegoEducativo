@@ -2,9 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const nombre = localStorage.getItem("nombre_doc");
   const apellido = localStorage.getItem("apellido_doc");
   const labelUsuario = document.getElementById("nombreUsuario");
-  if (nombre && apellido) {
+  if (nombre && apellido && labelUsuario) {
     labelUsuario.textContent = `Docente ${nombre} ${apellido}`;
   }
+
+  const path = window.location.pathname.replace("/", "");
+  const botones = document.querySelectorAll(".nav-links button");
+  botones.forEach(btn => {
+    if (btn.dataset.page === path) {
+      btn.classList.add("activo");
+      btn.disabled = true;
+    }
+  });
 
   const modal = document.getElementById("modal");
   const mensaje = document.getElementById("modal-message");
@@ -14,22 +23,32 @@ document.addEventListener("DOMContentLoaded", () => {
     mensaje.textContent = texto;
     modal.classList.remove("hidden");
   };
-  cerrarModal.onclick = () => modal.classList.add("hidden");
 
-  document.getElementById("btnMostrarFormulario").onclick = () => {
+  if (cerrarModal) {
+    cerrarModal.onclick = () => modal.classList.add("hidden");
+  }
+
+  document.getElementById("btnMostrarFormulario")?.addEventListener("click", () => {
     document.getElementById("modalFormulario").classList.remove("oculto");
-  };
-  document.getElementById("cerrarFormulario").onclick = () => {
+  });
+
+  document.getElementById("cerrarFormulario")?.addEventListener("click", () => {
     document.getElementById("modalFormulario").classList.add("oculto");
     document.getElementById("formPregunta").reset();
-  };
+  });
 
-  document.getElementById("cerrarSesion").addEventListener("click", () => {
+  document.getElementById("cerrarSesion")?.addEventListener("click", () => {
     localStorage.clear();
-    mostrarModal("Sesión cerrada");
-    setTimeout(() => {
+    const modalCerrar = document.getElementById("modalCerrarSesion");
+    if (modalCerrar) {
+      modalCerrar.classList.remove("oculto");
+      setTimeout(() => {
+        modalCerrar.classList.add("oculto");
+        window.location.href = "/logout";
+      }, 2000);
+    } else {
       window.location.href = "/logout";
-    }, 2000);
+    }
   });
 
   async function cargarPreguntas() {
@@ -38,11 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const res = await fetch("/pregunta");
       const resultado = await res.json();
-
-      const preguntas = Array.isArray(resultado)
-        ? resultado
-        : resultado.data;
-
+      const preguntas = Array.isArray(resultado) ? resultado : resultado.data;
       if (!Array.isArray(preguntas)) throw new Error("Respuesta no válida");
 
       preguntas.forEach((pregunta) => {
@@ -82,11 +97,12 @@ document.addEventListener("DOMContentLoaded", () => {
       mostrarModal("Error al visualizar pregunta");
     }
   };
-  document.getElementById("cerrarVisualizar").onclick = () => {
-    document.getElementById("modalVisualizarPregunta").classList.add("oculto");
-  };
 
-  document.getElementById("formPregunta").addEventListener("submit", async (e) => {
+  document.getElementById("cerrarVisualizar")?.addEventListener("click", () => {
+    document.getElementById("modalVisualizarPregunta").classList.add("oculto");
+  });
+
+  document.getElementById("formPregunta")?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
@@ -139,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  document.getElementById("formModificarPregunta").addEventListener("submit", async (e) => {
+  document.getElementById("formModificarPregunta")?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
@@ -172,11 +188,13 @@ document.addEventListener("DOMContentLoaded", () => {
     idAEliminar = id;
     document.getElementById("modalConfirmacion").classList.remove("oculto");
   };
-  document.getElementById("btnCancelarEliminar").onclick = () => {
+
+  document.getElementById("btnCancelarEliminar")?.addEventListener("click", () => {
     idAEliminar = null;
     document.getElementById("modalConfirmacion").classList.add("oculto");
-  };
-  document.getElementById("btnConfirmarEliminar").onclick = async () => {
+  });
+
+  document.getElementById("btnConfirmarEliminar")?.addEventListener("click", async () => {
     try {
       const res = await fetch(`/pregunta/${idAEliminar}`, {
         method: "DELETE",
@@ -189,10 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } finally {
       document.getElementById("modalConfirmacion").classList.add("oculto");
     }
-  };
+  });
 
-  document.getElementById("btnActualizarFormulario").onclick = cargarPreguntas;
+  document.getElementById("btnActualizarFormulario")?.addEventListener("click", cargarPreguntas);
 
   cargarPreguntas();
 });
-

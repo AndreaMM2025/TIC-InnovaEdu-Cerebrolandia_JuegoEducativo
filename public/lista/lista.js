@@ -3,6 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const apellido = localStorage.getItem('apellido_doc');
   const labelUsuario = document.getElementById('nombreUsuario');
 
+  const path = window.location.pathname.replace("/", "");
+  const botones = document.querySelectorAll(".nav-links button");
+
+  botones.forEach(btn => {
+    if (btn.dataset.page === path) {
+      btn.classList.add("activo");
+      btn.disabled = true;
+    }
+  });
+
   if (nombre && apellido) {
     labelUsuario.textContent = `Docente ${nombre} ${apellido}`;
   }
@@ -111,22 +121,17 @@ async function cargarEstudiantes() {
 function mostrarModal(mensaje) {
   const modal = document.getElementById("modal");
   const modalMsg = document.getElementById("modal-message");
-  const cerrarBtn = document.getElementById("cerrar-modal");
 
-  if (!modal || !modalMsg || !cerrarBtn) return;
+  if (!modal || !modalMsg) return;
 
   modalMsg.textContent = mensaje;
   modal.classList.remove("hidden");
 
-  const ocultar = () => {
+  setTimeout(() => {
     modal.classList.add("hidden");
-    cerrarBtn.removeEventListener("click", ocultar);
-  };
-
-  cerrarBtn.addEventListener("click", ocultar);
-
-  setTimeout(ocultar, 3000);
+  }, 3000);
 }
+
 
 function mostrarModalEstudiante(estudiante) {
   const modalEst = document.getElementById("modal-estudiante");

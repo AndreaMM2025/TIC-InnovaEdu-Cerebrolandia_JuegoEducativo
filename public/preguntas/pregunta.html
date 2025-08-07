@@ -13,6 +13,13 @@
       <img src="../img/doce.png" alt="icono perfil" class="icono" />
       <label id="nombreUsuario"></label>
     </div>
+
+    <nav class="nav-links">
+      <button data-page="estudiantes" onclick="location.href='/lista'">Estudiantes</button>
+      <button data-page="preguntas" onclick="location.href='/preguntas'">Preguntas</button>
+      <button data-page="resultados" onclick="location.href='/resultados'">Resultados</button>
+    </nav>
+    
     <button id="cerrarSesion">Cerrar sesión</button>
   </header>
 
@@ -68,7 +75,6 @@
     </div>
   </div>
 
-  <!-- Modal Ver -->
   <div id="modalVisualizarPregunta" class="modal oculto">
     <div class="modal-contenido form-container">
       <h3>Visualizar Pregunta</h3>
@@ -111,7 +117,7 @@
     </div>
   </div>
 
-  <div id="modalConfirmacion" class="modal oculto">
+  <div id="modalConfirmacion" class="modal oculto"> 
     <div class="modal-contenido confirm-container">
       <p class="texto-confirmacion">¿Estás seguro que deseas eliminar esta pregunta?</p>
       <div class="botones-modal">
@@ -121,11 +127,13 @@
     </div>
   </div>
 
-  <div id="modal" class="modal oculto">
-    <div class="modal-content">
-      <p id="modal-message"></p>
-      <button id="cerrar-modal">Cerrar</button>
+
+  <div id="modalCerrarSesion" class="modal oculto">
+    <div class="modal-contenido">
+      <p class="mensaje-cierre">Sesión cerrada</p>
     </div>
   </div>
+
+
 </body>
 </html>

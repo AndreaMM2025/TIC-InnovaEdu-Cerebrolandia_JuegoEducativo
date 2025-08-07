@@ -218,3 +218,33 @@ header {
 .oculto {
   display: none;
 }
+
+.nav-links {
+  display: flex;
+  gap: 100px;
+  margin-left: 20px;
+}
+
+.nav-links button {
+  background-color: #0074D9;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 5px #0074D9;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links button.activo {
+  background-color: #4CAF50;
+  cursor: default;
+  opacity: 0.8;
+  box-shadow: none;
+}
+
+
+.nav-links button:hover {
+  background-color: #005fa3;
+}
