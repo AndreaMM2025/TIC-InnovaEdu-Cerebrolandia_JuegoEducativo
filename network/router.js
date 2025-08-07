@@ -2,6 +2,7 @@ const path = require('path');
 const estudiante = require('../components/estudiante/interface');
 const docente = require('../components/docente/interface');
 const pregunta = require('../components/pregunta/interface');
+const respuesta = require('../components/respuesta/interface');
 
 
 function verificarSesion(req, res, next) {
@@ -67,6 +68,16 @@ const routes = (server) => {
     res.sendFile(filePath);
   });
 
+  server.get('/juego', verificarSesion, (req, res) => {
+    const filePath = path.join(__dirname, '..', 'public', 'juego', 'juego.html');
+    res.sendFile(filePath);
+  });
+
+  server.get('/resultados_estudiantes', verificarSesion, (req, res) => {
+    const filePath = path.join(__dirname, '..', 'public', 'result_est', 'result_est.html');
+    res.sendFile(filePath);
+  });
+
   server.get('/inicio-docente', verificarSesionDocente, (req, res) => {
     const filePath = path.join(__dirname, '..', 'public', 'inicio_doc', 'inicio_doc.html');
     res.sendFile(filePath);
@@ -78,7 +89,7 @@ const routes = (server) => {
   });
 
   server.get('/resultados', verificarSesionDocente, (req, res) => {
-    const filePath = path.join(__dirname, '..', 'public', 'resultados', 'panel_pregunta.html');
+    const filePath = path.join(__dirname, '..', 'public', 'resultados', 'resultados_docente.html');
     res.sendFile(filePath);
   });
 
@@ -92,6 +103,8 @@ const routes = (server) => {
   server.use('/docente', docente);
 
   server.use('/pregunta', pregunta);
+
+  server.use('/respuesta', respuesta);
   
   server.get('/docente/verificar-sesion', (req, res) => {
     if (req.session && req.session.docente) {
