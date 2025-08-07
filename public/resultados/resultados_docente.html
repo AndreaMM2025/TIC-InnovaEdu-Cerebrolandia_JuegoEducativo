@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resultados de Estudiantes</title>
+  <link rel="stylesheet" href="../resultados/resultados_docente.css" />
+  <script defer src="../resultados/resultados_docente.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="user-info">
+      <img src="../img/doce.png" alt="icono perfil" class="icono" />
+      <label id="nombreUsuario"></label>
+    </div>
+
+    <nav class="nav-links">
+      <button data-page="estudiantes" onclick="location.href='/lista'">Estudiantes</button>
+      <button data-page="preguntas" onclick="location.href='/preguntas'">Preguntas</button>
+      <button data-page="resultados" onclick="location.href='/resultados'">Resultados</button>
+    </nav>
+    
+    <button id="cerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <main>
+    <div class="panel">
+      <h2>Historial de Estudiantes</h2>
+      <div id="listaEstudiantes"></div>
+      <div class="boton-volver">
+        <a href="/inicio-docente"><button id="btnVolver">Volver al inicio</button></a>
+      </div>
+    </div>
+  </main>
+
+
+  <div id="modalIntentos" class="modal hidden">
+    <div class="modal-contenido">
+      <span id="cerrarModal" class="cerrar">&times;</span>
+      <h3 id="nombreEstudiante"></h3>
+      <div id="detalleIntentos"></div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+    </div>
+  </div>
+
+</body>
+</html>

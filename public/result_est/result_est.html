@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historial de Resultados</title>
+  <link rel="stylesheet" href="../result_est/result_est.css">
+  <script defer src="../result_est/result_est.js"></script>
+</head>
+<body>
+  <header>
+    <div class="user-info">
+      <img src="../img/estu.png" alt="icono perfil" class="icono" />
+      <label id="nombreUsuario"></label>
+    </div>
+    <button id="cerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <main>
+    <div class="cuadro-central">
+      <h1>Historial de Intentos</h1>
+        <section id="contenedor-resultados" class="lista-aventura">
+        </section>
+      <div class="botones-final">
+        <button onclick="location.href='/inicio'" id="jugarBtn">Volver al inicio</button>
+      </div>
+    </div>
+  </main>
+
+  <div id="modalIntento" class="modal hidden">
+    <div class="modal-content">
+      <span id="cerrarModalIntento" class="btn-cerrar">&times;</span>
+      <h2>Preguntas del intento</h2>
+      <div id="detalleIntento"></div>
+    </div>
+  </div>
+
+<div id="modal" class="hidden">
+  <p id="modal-message">Sesión cerrada</p>
+</div>
+
+
+
+
+
+</body>
+</html>
+

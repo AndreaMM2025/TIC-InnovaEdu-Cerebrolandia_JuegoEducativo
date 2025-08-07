@@ -86,18 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function mostrarModal(mensaje) {
   const modal = document.getElementById("modal");
   const modalMsg = document.getElementById("modal-message");
-  const cerrarBtn = document.getElementById("cerrar-modal");
 
   modalMsg.textContent = mensaje;
   modal.classList.remove("hidden");
 
-  const ocultar = () => {
+  setTimeout(() => {
     modal.classList.add("hidden");
-    cerrarBtn.removeEventListener("click", ocultar);
-  };
-
-  cerrarBtn.addEventListener("click", ocultar);
-
-  setTimeout(ocultar, 3000);
+  }, 3000);
 }
 

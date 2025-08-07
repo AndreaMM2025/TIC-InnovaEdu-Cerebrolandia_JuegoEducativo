@@ -1,0 +1,251 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  background-image: url("../img/home.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #001f3f;
+  padding: 10px 20px;
+  z-index: 2000;
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+.icono {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#cerrarSesion {
+  background-color: #ff4136;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#listaEstudiantes {
+  max-width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+
+.estudiante {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid limegreen;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.estudiante h3 {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estudiante button {
+  background-color: #0074d9;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: black;
+  color: limegreen;           
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px limegreen;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-contenido {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 90%;
+  max-width: 700px;
+}
+
+.cerrar {
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.intento {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid lime;
+  border-radius: 5px;
+  background-color: #111;
+}
+
+.pregunta {
+  margin-top: 10px;
+}
+
+.opcion {
+  margin-left: 20px;
+}
+
+.correcta {
+  color: lime;
+}
+
+.incorrecta {
+  color: red;
+}
+
+
+/* PANEL central igual al de estudiante */
+.panel {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 0 20px limegreen;
+  text-align: center;
+}
+
+.panel h2 {
+  color: limegreen;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+/* Estilo visual unificado para cada estudiante */
+.estudiante {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid limegreen;
+  margin: 10px 0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+}
+
+.estudiante span {
+  flex: 1;
+  text-align: left;
+}
+
+
+
+/* Botón "Ver" */
+.estudiante button {
+  background-color: #0074d9;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Botón "Volver al inicio" */
+#btnVolver {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btnVolver:hover {
+  background-color: darkred;
+}
+
+.pregunta-box {
+  background-color: #2b2b2b;
+  border: 2px solid limegreen;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+
+.nav-links {
+  display: flex;
+  gap: 100px;
+  margin-left: 20px;
+}
+
+.nav-links button {
+  background-color: #0074D9;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 5px #0074D9;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links button.activo {
+  background-color: #4CAF50;
+  cursor: default;
+  opacity: 0.8;
+  box-shadow: none;
+}
+
+
+.nav-links button:hover {
+  background-color: #005fa3;
+}
