@@ -57,6 +57,7 @@ async function login_Estudiante(email, contrasena) {
 
   return {
     mensaje: 'Inicio de sesión exitoso',
+    _id: estudiante._id,
     nombre: estudiante.nombre,
     apellido: estudiante.apellido,
     email: estudiante.email,
