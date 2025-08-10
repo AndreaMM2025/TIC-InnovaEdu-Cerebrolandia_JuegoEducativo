@@ -9,6 +9,10 @@ body {
   color: white;
 }
 
+html, body {
+  height: 100%;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -83,7 +87,8 @@ h1 {
 }
 
 #jugarBtn {
-  margin-top: 20px;
+  display: block;              
+  margin: 20px auto;            
   padding: 12px 25px;
   background-color: #00ff66;
   color: black;
