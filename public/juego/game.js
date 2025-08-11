@@ -3,7 +3,12 @@ import { createAnimations } from "./animations.js";
 let modalActivo = false;
 
 let totalPreguntas = 0;
-let respuestasJugador = []
+let respuestasJugador = [];
+
+// --- SALTO robusto ---
+let jumpQueued = false;       // cola para pulsos cortos (joystick)
+let lastJumpAt = 0;           // timestamp del último salto
+const JUMP_COOLDOWN = 220;    // ms mínimos entre saltos
 
 /* ------------------------- Carga de preguntas ------------------------- */
 async function cargarPreguntas() {
@@ -31,10 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("cerrarSesion")?.addEventListener("click", async () => {
     try {
-      const response = await fetch("/logout", {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch("/logout", { method: "GET", credentials: "include" });
       if (response.ok) {
         mostrarModal("Sesión cerrada");
         setTimeout(() => (window.location.href = "/"), 2000);
@@ -55,23 +57,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 /* ----------------------------- Modales UI ----------------------------- */
-
 function mostrarModal(mensaje) {
   const modal = document.getElementById("modal");
   const modalMsg = document.getElementById("modal-message");
-
   modalMsg.textContent = mensaje;
   modal.classList.remove("hidden");
-
-  setTimeout(() => {
-    modal.classList.add("hidden");
-  }, 3000);
+  setTimeout(() => modal.classList.add("hidden"), 3000);
 }
 
 function ensureGameOverModal() {
   let modal = document.getElementById("gameOverModal");
   if (modal) return;
-
   modal = document.createElement("div");
   modal.id = "gameOverModal";
   modal.className = "modal hidden";
@@ -88,7 +84,6 @@ function ensureGameOverModal() {
 function ensurePreguntaModal() {
   let modal = document.getElementById("modalPregunta");
   if (modal) return;
-
   modal = document.createElement("div");
   modal.id = "modalPregunta";
   modal.className = "modal hidden";
@@ -119,7 +114,6 @@ window.mostrarPregunta = function (pipe, escena) {
 
     btn.onclick = () => {
       btn.blur();
-
       const modalRespuesta = document.getElementById("modalRespuesta");
       const mensajeRespuesta = document.getElementById("mensajeRespuesta");
 
@@ -135,6 +129,7 @@ window.mostrarPregunta = function (pipe, escena) {
         mensajeRespuesta.textContent = "Incorrecto";
         mensajeRespuesta.style.color = "red";
       }
+
       respuestasJugador.push({
         preguntaId: pipe.pregunta._id,
         enunciado: pipe.pregunta.enunciado,
@@ -143,12 +138,9 @@ window.mostrarPregunta = function (pipe, escena) {
         correcta: pipe.pregunta.correcta
       });
 
-
-
       pipe.respondida = true;
 
       modalRespuesta.classList.remove("hidden");
-
       setTimeout(() => {
         modalRespuesta.classList.add("hidden");
         cerrarModalYContinuar(escena);
@@ -165,7 +157,6 @@ window.mostrarPregunta = function (pipe, escena) {
 function cerrarModalYContinuar(escena) {
   const modal = document.getElementById("modalPregunta");
   modal.classList.add("hidden");
-
   escena.physics.world.resume();
 
   const cursors = escena.cursors;
@@ -179,16 +170,12 @@ function cerrarModalYContinuar(escena) {
   }
 
   escena.input.keyboard.enabled = true;
-
   modalActivo = false;
 
   const tubos = escena.pipes.getChildren();
   const sinPreguntas = tubos.every((t) => t.respondida || !t.pregunta);
-  if (sinPreguntas) {
-    mostrarModal("¡Ya respondiste todas las preguntas! continua a la meta");
-  }
+  if (sinPreguntas) mostrarModal("¡Ya respondiste todas las preguntas! continua a la meta");
 
-  // Actualizar progreso del HUD
   answered = escena.pipes.getChildren().filter((t) => t.respondida).length;
   updateHUD(escena);
 }
@@ -208,25 +195,19 @@ function getStudentName() {
 }
 
 function buildHUD(scene) {
-  // Reiniciar referencias por si la escena fue reiniciada
   HUD = { nameText: null, livesIcons: [], progressText: null };
-
   const useBitmap = scene.cache.bitmapFont.exists("retro");
 
-  // Nombre
   HUD.nameText = useBitmap
     ? scene.add.bitmapText(16, 8, "retro", getStudentName(), 16)
     : scene.add.text(16, 8, getStudentName(), { fontFamily: "monospace", fontSize: "14px", color: "#ffffff" });
   HUD.nameText.setScrollFactor(0).setDepth(1000);
 
-  // Score (centro-derecha)
   HUD.scoreText = useBitmap
     ? scene.add.bitmapText(scene.scale.width / 2 + 100, 8, "retro", "000000", 16)
     : scene.add.text(scene.scale.width / 2 + 100, 8, "000000", { fontFamily: "monospace", fontSize: "14px", color: "#ffffff" });
   HUD.scoreText.setOrigin(0.5, 0).setScrollFactor(0).setDepth(1000);
 
-
-  // Progreso respuestas (derecha)
   HUD.progressText = useBitmap
     ? scene.add.bitmapText(scene.scale.width - 16, 8, "retro", "0/0", 16)
     : scene.add.text(scene.scale.width - 16, 8, "0/0", { fontFamily: "monospace", fontSize: "14px", color: "#ffffff" });
@@ -237,9 +218,9 @@ function buildHUD(scene) {
 
 async function registrarRespuestasFinales() {
   const payload = {
-  estudianteId: localStorage.getItem("id"),
-  respuestas: respuestasJugador
-};
+    estudianteId: localStorage.getItem("id"),
+    respuestas: respuestasJugador
+  };
 
   try {
     await fetch('/respuesta', {
@@ -255,11 +236,9 @@ async function registrarRespuestasFinales() {
   respuestasJugador = [];
 }
 
-
 function updateHUD(scene) {
   const padded = String(score).padStart(6, "0");
   HUD.scoreText.setText(padded);
-  // Progreso
   HUD.progressText.setText(`${answered}/${totalQuestions}`);
 }
 
@@ -271,10 +250,8 @@ const config = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    // width: 1024,
-    // height: 512,
     width: 640,
-    height :480,
+    height: 480,
   },
   backgroundColor: "#049cd8",
   parent: "game",
@@ -312,7 +289,6 @@ function preload() {
   this.load.image("castle", "assets/scenery/castle.png");
   this.load.image("stone", "assets/blocks/overworld/immovableBlock.png");
 
-
   this.load.spritesheet("mario", "assets/entities/mario.png", {
     frameWidth: 18,
     frameHeight: 16,
@@ -335,15 +311,13 @@ function preload() {
   this.load.audio("jump", "assets/sound/effects/jump.mp3");
   this.load.audio("coin", "assets/sound/effects/coin.mp3");
 
-
-  // Bitmap font retro
   this.load.bitmapFont('retro','/juego/assets/fonts/carrier_command.png','/juego/assets/fonts/carrier_command.xml');
 }
 
+/* -------------------------------- Create -------------------------------- */
 function create() {
   const altura = this.scale.height;
   const worldWidth = 3000;
-  // Escalera + mástil + castillo al final
   const finalX = worldWidth - 150;
   const baseY = altura - 32;
   let metaAlcanzada = false;
@@ -352,7 +326,7 @@ function create() {
   this.cameras.main.setBounds(0, 0, worldWidth, altura);
   this.cameras.main.setZoom(1);
 
-  // Añadir margen negro arriba para visibilidad del HUD
+  // Margen negro arriba para HUD
   this.cameras.main.preRenderCamera = (cam, ctx) => {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, this.scale.width, 60);
@@ -366,7 +340,8 @@ function create() {
     const tile = this.floor.create(x, altura - 16, "floorbricks").setOrigin(0, 0.5);
     tile.refreshBody();
   }
-  // Nubes
+
+  // Decorado
   this.add.image(300, 150, "cloud1").setScale(0.6).setScrollFactor(0.6);
   this.add.image(800, 200, "cloud2").setScale(0.6).setScrollFactor(0.6);
   this.add.image(1400, 175, "cloud1").setScale(0.6).setScrollFactor(0.6);
@@ -374,16 +349,13 @@ function create() {
   this.add.image(1000, 140, "cloud2").setScale(0.6).setScrollFactor(0.6);
   this.add.image(2400, 100, "cloud1").setScale(0.6).setScrollFactor(0.6);
 
-  // Montañas
   this.add.image(300, altura - 32, "mountain1").setOrigin(0, 1).setScrollFactor(0.5);
   this.add.image(700, altura - 32, "mountain2").setOrigin(0, 1).setScrollFactor(0.5);
   this.add.image(1000, altura - 32, "mountain1").setOrigin(0, 1).setScrollFactor(0.5);
   this.add.image(1250, altura - 32, "mountain2").setOrigin(0, 1).setScrollFactor(0.5);
 
-  // Arbustos
   this.add.image(400, altura - 32, "bush1").setOrigin(0, 1).setScrollFactor(1).setScale(0.7);
   this.add.image(900, altura - 32, "bush2").setOrigin(0, 1).setScrollFactor(1).setScale(0.7);
-
 
   // Mario
   this.mario = this.physics.add.sprite(50, altura - 90, "mario").setOrigin(0, 1).setScale(2).setCollideWorldBounds(true);
@@ -401,69 +373,66 @@ function create() {
   goombas = this.physics.add.group();
   koopas = this.physics.add.group();
 
-// Tuberías + preguntas
-this.pipes = this.physics.add.staticGroup();
+  // Tuberías + preguntas
+  this.pipes = this.physics.add.staticGroup();
 
-const groundTopY = altura - 32;
-const preguntas = (window.preguntasDisponibles || []).slice(0, 10); // cantitdad de preguntas aleatorias
+  const groundTopY = altura - 32;
+  const preguntas = (window.preguntasDisponibles || []).slice(0, 10);
 
-const tuberiasManual = [
-  { x: 400, sprite: "pipe1" },
-  { x: 600, sprite: "pipe2" },
-  { x: 900, sprite: "pipe2" },
-  { x: 1050, sprite: "pipe2" },
-  { x: 1200, sprite: "pipe1" },
-  { x: 1350, sprite: "pipe2" },
-  { x: 1500, sprite: "pipe1" },
-  { x: 1650, sprite: "pipe2" },
-  { x: 1800, sprite: "pipe2" },
-  { x: 1950, sprite: "pipe1" }
-];
+  const tuberiasManual = [
+    { x: 400, sprite: "pipe1" },
+    { x: 600, sprite: "pipe2" },
+    { x: 900, sprite: "pipe2" },
+    { x: 1050, sprite: "pipe2" },
+    { x: 1200, sprite: "pipe1" },
+    { x: 1350, sprite: "pipe2" },
+    { x: 1500, sprite: "pipe1" },
+    { x: 1650, sprite: "pipe2" },
+    { x: 1800, sprite: "pipe2" },
+    { x: 1950, sprite: "pipe1" }
+  ];
 
-tuberiasManual.forEach((config, index) => {
-  const pipe = this.pipes.create(config.x, groundTopY, config.sprite)
-    .setOrigin(0, 1)
-    .setScale(1.5);
-  pipe.refreshBody();
+  tuberiasManual.forEach((config, index) => {
+    const pipe = this.pipes.create(config.x, groundTopY, config.sprite)
+      .setOrigin(0, 1)
+      .setScale(1.5);
+    pipe.refreshBody();
 
-  pipe.pregunta = preguntas[index] || null;
-  pipe.respondida = false;
+    pipe.pregunta = preguntas[index] || null;
+    pipe.respondida = false;
 
-  this.physics.add.overlap(
-    this.mario,
-    pipe,
-    () => {
-      const marioTouching = this.mario.body.touching.down && pipe.body.touching.up;
-      if (modalActivo || pipe.respondida || !pipe.pregunta || !marioTouching) return;
-      mostrarPregunta(pipe, this);
-    },
-    null,
-    this
-  );
-});
+    this.physics.add.overlap(
+      this.mario,
+      pipe,
+      () => {
+        const marioTouching = this.mario.body.touching.down && pipe.body.touching.up;
+        if (modalActivo || pipe.respondida || !pipe.pregunta || !marioTouching) return;
+        mostrarPregunta(pipe, this);
+      },
+      null,
+      this
+    );
+  });
 
+  // Bloques
   this.blocks = this.physics.add.staticGroup();
-//bloques iniciales
   const blockY = altura - 160;
   for (let x = 200; x <= 300; x += 32) {
     this.blocks.create(x, blockY, "block").setOrigin(0, 0).setScale(2).refreshBody();
   }
   const blockY2 = altura - 200;
-    for (let x = 725; x <= 775; x += 32) { //725; x <= 775      400; x <= 2000
+  for (let x = 725; x <= 775; x += 32) {
     this.blocks.create(x, blockY2, "block").setOrigin(0, 0).setScale(2).refreshBody();
   }
-    //piedras finales --------------------------------------------------------------------------------------
-  const blockF1 = altura -63;
+  const blockF1 = altura - 63;
   for (let x = 2450; x <= 2650; x += 32) {
     this.blocks.create(x, blockF1, "stone").setOrigin(0, 0).setScale(2).refreshBody();
   }
-
-  const blockF2 = altura -95;
+  const blockF2 = altura - 95;
   for (let x = 2485; x <= 2635; x += 32) {
     this.blocks.create(x, blockF2, "stone").setOrigin(0, 0).setScale(2).refreshBody();
   }
-
-    const blockF3 = altura -127;
+  const blockF3 = altura - 127;
   for (let x = 2520; x <= 2600; x += 32) {
     this.blocks.create(x, blockF3, "stone").setOrigin(0, 0).setScale(2).refreshBody();
   }
@@ -474,18 +443,15 @@ tuberiasManual.forEach((config, index) => {
   misteryBlock.body.allowGravity = false;
   this.blocks.add(misteryBlock);
 
-  // this.blocks.create(964, blockY, "brick").setOrigin(0, 0).setScale(2).refreshBody();
-
   this.physics.add.collider(this.mario, this.blocks);
   this.physics.add.collider(goombas, this.blocks);
   this.physics.add.collider(koopas, this.blocks);
 
-
   // Totales y HUD
   totalQuestions = this.pipes.getChildren().filter(p => p.pregunta !== null).length;
-    buildHUD(this);
-    answered = this.pipes.getChildren().filter((p) => p.respondida).length;
-    updateHUD(this);
+  buildHUD(this);
+  answered = this.pipes.getChildren().filter((p) => p.respondida).length;
+  updateHUD(this);
 
   // Colisiones
   this.physics.add.collider(this.mario, this.pipes);
@@ -494,20 +460,16 @@ tuberiasManual.forEach((config, index) => {
   this.physics.add.collider(goombas, this.pipes);
   this.physics.add.collider(koopas, this.pipes);
 
-  // Enemigos iniciales
+  // Enemigos
   goombas.create(600, altura - 48, "goomba").setVelocityX(-40).setScale(2).setCollideWorldBounds(true)
-    .setBounce(0.9)
-    .anims.play("goomba-walk");
+    .setBounce(0.9).anims.play("goomba-walk");
 
   koopas.create(900, altura - 60, "koopa").setVelocityX(-40).setScale(2).setCollideWorldBounds(true)
-    .setBounce(0.9)
-    .anims.play("koopa-walk");
+    .setBounce(0.9).anims.play("koopa-walk");
 
-  this.meta = this.physics.add
-    .staticImage(finalX-120, baseY, "flagpole")
-    .setOrigin(0, 1)
-    .setScale(1.9) // aumentaste el sprite visual
-    .refreshBody();
+  // Meta
+  this.meta = this.physics.add.staticImage(finalX - 120, baseY, "flagpole")
+    .setOrigin(0, 1).setScale(1.9).refreshBody();
 
   const verificarMeta = () => {
     if (modalActivo || metaAlcanzada) return;
@@ -525,12 +487,10 @@ tuberiasManual.forEach((config, index) => {
       mensaje.textContent = "¡Tienes preguntas pendientes por responder!";
       modal.classList.remove("hidden");
 
-
       this.physics.world.removeCollider(this.metaCollider);
 
       setTimeout(() => {
         modal.classList.add("hidden");
-
         modalActivo = false;
         metaAlcanzada = false;
         this.metaCollider = this.physics.add.overlap(this.mario, this.meta, verificarMeta, null, this);
@@ -544,7 +504,6 @@ tuberiasManual.forEach((config, index) => {
       mensaje.textContent = "¡Felicidades! Respondiste todas las preguntas.";
       modal.classList.remove("hidden");
 
-
       this.physics.world.removeCollider(this.metaCollider);
 
       btnContinuar.onclick = () => {
@@ -554,32 +513,41 @@ tuberiasManual.forEach((config, index) => {
           window.location.href = "/resultados_estudiantes";
         });
       };
-
     }
   };
 
-
   this.metaCollider = this.physics.add.overlap(this.mario, this.meta, verificarMeta, null, this);
-
-
-
-
-
 
   const col1 = this.physics.add.collider(this.mario, goombas, () => morir.call(this), null, this);
   const col2 = this.physics.add.collider(this.mario, koopas, () => morir.call(this), null, this);
   playerEnemyColliders = [col1, col2];
 
-  // Mástil y bandera
-  this.add.image(finalX-120 , baseY, "flagpole").setOrigin(0, 1).setScale(1.9).setScrollFactor(1);
+  // Extras visuales
+  this.add.image(finalX - 120, baseY, "flagpole").setOrigin(0, 1).setScale(1.9).setScrollFactor(1);
   this.add.image(finalX - 135, baseY - 300, "flag").setOrigin(0, 0).setScale(1.8).setScrollFactor(1);
-
-  // Castillo
-  this.add.image(finalX-40 , baseY, "castle").setOrigin(0, 1).setScale(2).setScrollFactor(1);
-
+  this.add.image(finalX - 40, baseY, "castle").setOrigin(0, 1).setScale(2).setScrollFactor(1);
 
   // Controles
   this.cursors = this.input.keyboard.createCursorKeys();
+
+  // Salto por pulso (incluye joystick) con cooldown
+  this.input.keyboard.on('keydown-UP', (ev) => {
+    if (ev.repeat) return;
+    if (this.time.now - lastJumpAt < JUMP_COOLDOWN) return;
+    jumpQueued = true;
+  });
+
+  // Mensaje de “Joystick conectado” (si Python manda F12)
+  this.input.keyboard.on('keydown-F12', () => {
+    mostrarModal("🎮 Joystick conectado");
+  });
+
+  // Asegurar foco del canvas
+  if (this.game.canvas) {
+    this.game.canvas.setAttribute("tabindex", "0");
+    this.game.canvas.focus();
+  }
+  document.addEventListener("click", () => this.game.canvas && this.game.canvas.focus());
 
   // Game Over modal + reinicio
   this.gameOverModal = document.getElementById("gameOverModal");
@@ -608,14 +576,9 @@ function morir() {
   if (this.mario.isDead) return;
   this.mario.isDead = true;
 
-    // Restar una vida
-    lives = Math.max(0, lives - 1);
-
-    // Reiniciar el score
-    score = 0;
-
-    // Actualizar HUD
-    updateHUD(this);
+  lives = Math.max(0, lives - 1);
+  score = 0;
+  updateHUD(this);
 
   playerEnemyColliders.forEach((c) => c?.destroy());
   this.input.keyboard.enabled = false;
@@ -645,6 +608,7 @@ function update() {
 
   const cursors = this.cursors;
 
+  // Movimiento
   if (cursors.left.isDown) {
     this.mario.setVelocityX(-160);
     this.mario.anims.play("mario-walk", true);
@@ -658,10 +622,25 @@ function update() {
     this.mario.anims.play("mario-idle");
   }
 
-  if (cursors.up.isDown && this.mario.body.blocked.down) {
-    this.mario.setVelocityY(-300);////  250  550
+  // --- SALTO con detector de borde y cooldown (anti-doble) ---
+  const justPressedUp = Phaser.Input.Keyboard.JustDown(cursors.up);
+  const wantJump = justPressedUp || jumpQueued;
+
+  if (
+    wantJump &&
+    this.mario.body.blocked.down &&
+    (this.time.now - lastJumpAt > JUMP_COOLDOWN)
+  ) {
+    this.mario.setVelocityY(-300); // salto fijo (no “largo” por mantener tecla)
     this.mario.anims.play("mario-jump");
-    this.sound.play("jump",{ volume: 0.2 });
+    this.sound.play("jump", { volume: 0.2 });
+    lastJumpAt = this.time.now;  // inicia cooldown
+    jumpQueued = false;          // consumir pulso
+  } else {
+    // Limpia la cola si ya tocó suelo y no está en cooldown
+    if (this.mario.body.blocked.down && (this.time.now - lastJumpAt > JUMP_COOLDOWN)) {
+      jumpQueued = false;
+    }
   }
 
   if (this.mario.body.velocity.y > 0 && !this.mario.body.blocked.down) {
@@ -685,10 +664,10 @@ function update() {
   koopas.getChildren().forEach(koopa => {
     if (koopa.body.blocked.left) {
       koopa.setVelocityX(40);
-      koopa.flipX = true; // <- Koopa mira a la derecha
+      koopa.flipX = true;
     } else if (koopa.body.blocked.right) {
       koopa.setVelocityX(-40);
-      koopa.flipX = false; // <- Koopa mira a la izquierda
+      koopa.flipX = false;
     }
   });
 }
